@@ -24,7 +24,7 @@
 
 import axios, { AxiosError } from 'axios';
 
-const MAINLAYER_API_BASE = 'https://api.mainlayer.xyz';
+const MAINLAYER_API_BASE = 'https://api.mainlayer.fr';
 const VENDOR_AGENT_URL = process.env.VENDOR_AGENT_URL ?? 'http://localhost:3000';
 const CALLER_API_KEY = process.env.CALLER_AGENT_API_KEY ?? '';
 const CALLER_WALLET = process.env.CALLER_AGENT_WALLET ?? '';

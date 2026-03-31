@@ -15,7 +15,7 @@
 
 import axios, { AxiosError } from 'axios';
 
-export const MAINLAYER_API_BASE = 'https://api.mainlayer.xyz';
+export const MAINLAYER_API_BASE = 'https://api.mainlayer.fr';
 
 // ---------------------------------------------------------------------------
 // Types

@@ -95,7 +95,7 @@ export async function verifyPayment(
     payment_details: {
       resource_id: resourceId,
       price_usdc: effectivePriceUsdc,
-      pay_endpoint: 'https://api.mainlayer.xyz/payments',
+      pay_endpoint: 'https://api.mainlayer.fr/payments',
     },
   };
 }

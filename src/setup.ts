@@ -13,7 +13,7 @@
  *   npm run setup
  *
  * Prerequisites:
- *   - A Mainlayer account (https://mainlayer.xyz)
+ *   - A Mainlayer account (https://mainlayer.fr)
  *   - MAINLAYER_API_KEY set in .env
  *   - (Optional) Customize AGENT_PRICE_USDC and AGENT_DESCRIPTION in .env
  */
@@ -49,7 +49,7 @@ async function setup(): Promise<void> {
     console.error('ERROR: MAINLAYER_API_KEY is not set.\n');
     console.error('Steps to fix:');
     console.error('  1. Copy .env.example to .env');
-    console.error('  2. Get your API key at https://mainlayer.xyz/dashboard');
+    console.error('  2. Get your API key at https://dashboard.mainlayer.fr');
     console.error('  3. Set MAINLAYER_API_KEY=ml_your_actual_key in .env');
     console.error('  4. Re-run: npm run setup');
     process.exit(1);
@@ -88,7 +88,7 @@ async function setup(): Promise<void> {
     if (axiosErr.response?.status === 409) {
       console.log('SKIPPED (resource already exists)\n');
       console.log('A resource with this slug already exists on your account.');
-      console.log('To find the existing resource ID, log into https://mainlayer.xyz/dashboard');
+      console.log('To find the existing resource ID, log into https://dashboard.mainlayer.fr');
       console.log('\nIf you want a fresh resource, change AGENT_SLUG in your .env and re-run.');
       process.exit(0);
     }
@@ -96,7 +96,7 @@ async function setup(): Promise<void> {
     if (axiosErr.response?.status === 401) {
       console.error('FAILED (invalid API key)\n');
       console.error('Your MAINLAYER_API_KEY appears to be invalid.');
-      console.error('Get a valid key at: https://mainlayer.xyz/dashboard');
+      console.error('Get a valid key at: https://dashboard.mainlayer.fr');
       process.exit(1);
     }
 
@@ -106,7 +106,7 @@ async function setup(): Promise<void> {
       axiosErr.message;
     console.error(`FAILED\n`);
     console.error(`Error: ${message}`);
-    console.error(`\nIf this persists, check https://mainlayer.xyz/status or open an issue.`);
+    console.error(`\nIf this persists, check https://mainlayer.fr/status or open an issue.`);
     process.exit(1);
   }
 }

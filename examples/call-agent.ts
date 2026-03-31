@@ -24,7 +24,7 @@ import axios, { AxiosError } from 'axios';
 const AGENT_BASE_URL = process.env.AGENT_BASE_URL ?? 'http://localhost:3000';
 const PAYER_API_KEY = process.env.PAYER_MAINLAYER_API_KEY ?? '';
 const PAYER_WALLET = process.env.PAYER_WALLET ?? '';
-const MAINLAYER_API_BASE = 'https://api.mainlayer.xyz';
+const MAINLAYER_API_BASE = 'https://api.mainlayer.fr';
 
 interface AgentInfo {
   name: string;

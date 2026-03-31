@@ -1,6 +1,6 @@
 # AI Agent Paywall
 
-A template for AI agents that sell their outputs on a pay-per-use basis via [Mainlayer](https://mainlayer.xyz) — payment infrastructure for AI agents.
+A template for AI agents that sell their outputs on a pay-per-use basis via [Mainlayer](https://mainlayer.fr) — payment infrastructure for AI agents.
 
 Clone this, replace the demo agent logic with your own, and you have a working paid AI API in minutes.
 
@@ -22,7 +22,7 @@ npm install
 
 # 2. Configure environment
 cp .env.example .env
-# Add your MAINLAYER_API_KEY to .env (get one at https://mainlayer.xyz/dashboard)
+# Add your MAINLAYER_API_KEY to .env (get one at https://dashboard.mainlayer.fr)
 
 # 3. Register this agent on Mainlayer
 npm run setup
@@ -155,7 +155,7 @@ Public info about this agent: price, resource ID, payment instructions.
   "price_usdc": 0.01,
   "resource_id": "res_...",
   "payment": {
-    "pay_endpoint": "https://api.mainlayer.xyz/payments",
+    "pay_endpoint": "https://api.mainlayer.fr/payments",
     "required_header": "X-Payer-Wallet"
   }
 }
@@ -201,7 +201,7 @@ Content-Type: application/json
   "payment_details": {
     "resource_id": "res_...",
     "price_usdc": 0.01,
-    "pay_endpoint": "https://api.mainlayer.xyz/payments"
+    "pay_endpoint": "https://api.mainlayer.fr/payments"
   }
 }
 ```
