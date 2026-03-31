@@ -63,6 +63,7 @@ Open `src/agent.ts`. The `runAgent` function is the only thing you need to chang
 ```typescript
 // Current demo (src/agent.ts)
 export async function runAgent(input: AgentInput): Promise<AgentOutput> {
+  const start = Date.now();
   return {
     result: `Summary of "${input.input.slice(0, 50)}..."`,
     latency_ms: Date.now() - start,
@@ -102,6 +103,85 @@ export async function runAgent(input: AgentInput): Promise<AgentOutput> {
 ```
 
 Everything else — the paywall, the HTTP server, the Mainlayer integration — stays the same.
+
+## Multiple Pricing Models
+
+This template supports different pricing strategies. Switch between them by setting `AGENT_PRICING_MODEL` in `.env`:
+
+### 1. Pay-Per-Call (default)
+
+```bash
+AGENT_PRICING_MODEL=pay_per_call
+AGENT_PRICE_USDC=0.01  # $0.01 per call
+```
+
+Every call costs exactly `$0.01`.
+
+### 2. Subscription (monthly recurring)
+
+```bash
+AGENT_PRICING_MODEL=subscription
+AGENT_SUBSCRIPTION_PRICE_USDC=9.99
+AGENT_SUBSCRIPTION_INTERVAL=month
+```
+
+Users subscribe at `$9.99/month` for unlimited calls.
+
+### 3. Freemium (free tier with paid upgrades)
+
+```bash
+AGENT_PRICING_MODEL=freemium
+AGENT_FREE_CALLS_PER_DAY=5
+AGENT_PAID_PRICE_USDC=0.01
+```
+
+Users get 5 free calls/day, then pay $0.01 per call.
+
+### 4. Usage-Based (pay based on tokens or complexity)
+
+```bash
+AGENT_PRICING_MODEL=usage_based
+AGENT_PRICE_PER_1000_TOKENS=0.05
+```
+
+Price scales with the size of the request (e.g. $0.05 per 1000 tokens used).
+
+## Revenue Tracking Dashboard
+
+The template includes endpoints for tracking earnings:
+
+**`GET /revenue`** — Current revenue summary (requires API key)
+
+```bash
+curl -H "Authorization: Bearer ${MAINLAYER_API_KEY}" http://localhost:3000/revenue
+```
+
+Response:
+```json
+{
+  "total_revenue_usd": 1234.56,
+  "total_calls": 45678,
+  "unique_payers": 2341,
+  "average_price_per_call": 0.027,
+  "revenue_by_period": {
+    "today": 12.34,
+    "this_week": 89.12,
+    "this_month": 567.89
+  },
+  "top_features": [
+    { "input_preview": "Summarize this article", "call_count": 234 }
+  ]
+}
+```
+
+**`GET /revenue/breakdown`** — Revenue breakdown by pricing model
+
+```json
+{
+  "pay_per_call": { "revenue": 800.00, "percentage": 65 },
+  "subscription": { "revenue": 400.00, "percentage": 35 }
+}
+```
 
 ## How the payment flow works
 
