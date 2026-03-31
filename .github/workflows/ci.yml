@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-typecheck:
+    name: Build & Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Build
+        run: npm run build
+
+  docker:
+    name: Docker Build
+    runs-on: ubuntu-latest
+    needs: build-and-typecheck
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ai-agent-paywall:ci .
+
+      - name: Verify Docker image starts
+        run: |
+          docker run -d \
+            --name test-agent \
+            -p 3000:3000 \
+            -e MAINLAYER_API_KEY=ml_test \
+            -e MAINLAYER_RESOURCE_ID=res_test \
+            ai-agent-paywall:ci
+          sleep 5
+          curl --fail http://localhost:3000/health
+          docker stop test-agent
